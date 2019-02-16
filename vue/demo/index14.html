@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>使用组件的细节</title>
+	<script src="../js/vue-2.4.1.min.js"></script>
+</head>
+<body>
+	<div id="root">
+		<table>
+			<tbody>
+				<!-- 
+					因为tobody 中必须有tr，而不能直接写row，所以用is属性
+					同上的还有 ul标签，select标签等
+				 -->
+				<tr  is="row"></tr>
+				<tr  is="row"></tr>
+				<tr  is="row"></tr>
+			</tbody>
+		</table>
+		<hr>
+
+		<div ref='hello' @click="handleClick">hello world</div>
+	</div>
+
+
+	<script type="text/javascript">
+		//在子组件中的data 对应的只能是function，而且需要返回数据
+
+		Vue.component('row',{
+			data:function(){
+				return {
+					content:'this is a row2'
+				}
+			},
+			template:'<tr><td>{{content}}</td></tr>'
+		});
+		var vm = new Vue({
+			el:'#root',
+			methods:{
+				handleClick:function(){
+					alert(this.$refs.hello.innerHTML); 
+				}
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>函数应用</title>
+	<style type="text/css">
+		ul{
+			padding: 0;
+			margin: 0;
+
+		}
+
+		li{
+			list-style: none;
+		}
+
+		body{
+			background: pink;
+		}
+
+		.box{
+			width: 500px;
+			height: 500px;
+			position: relative;
+			background: red;
+			float: left;
+			margin-right: 60px;
+		}
+
+		.box img{
+			width: 300px;
+			height: 300px;
+		}
+
+		.box ul{
+			width: 40px;
+			position: absolute;
+			top: 0;
+			right: -50px;
+
+		}
+		.box li{
+			width: 40px;
+			height: 40px;
+			margin-bottom: 4px;
+			background: #666;
+		}
+
+		.box .active{
+			background: #FC3;
+		}
+		.box span{
+			top: 0;
+		}
+		.box p{
+			bottom: 0;
+			margin: 0;
+		}
+
+		.box p,.box span{
+			position: absolute;
+			left: 0;
+			width: 500px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			color: #fff;
+			background: #000;
+		}
+	</style>
+</head>
+<body>
+	<div id = "pic1" class ="box">
+		<img src="">
+		<span>数量</span>
+		<p>文字</p>
+		<ul></ul>
+	</div>
+	<div id = "pic2" class ="box">
+		<img src="">
+		<span>数量</span>
+		<p>文字</p>
+		<ul></ul>
+	</div>
+	<script type="text/javascript">
+		
+		//通过函数将重用代码封装调用
+		window.onload=function(){
+			function fnTab (id,arrUrl,arrText,evt){
+				var oDiv = document.getElementById(id);
+				var oImg = oDiv.getElementsByTagName('img')[0];
+				var oSpan = oDiv.getElementsByTagName('span')[0];
+				var oP = oDiv.getElementsByTagName('p')[0];
+				var oUl = oDiv.getElementsByTagName('ul')[0];
+				var aLi = oUl.getElementsByTagName('li');
+				var num =0; 
+
+				for (var i = 0; i<arrUrl.length; i++) {
+					oUl.innerHTML+='<li></li>';
+				}
+
+				function lunbo(){
+					oImg.src=arrUrl[num];
+					oSpan.innerHTML = 1+ num+'/'+arrUrl.length;
+					oP.innerHTML =arrText[num];
+					for (var i = 0; i<aLi.length; i++) {
+						aLi[i].className='';
+					}
+					aLi[num].className='active';
+				}
+				lunbo();
+				for (var i = 0; i<aLi.length; i++) {
+					aLi[i].index=i;
+					aLi[i][evt]=function(){
+						alert(evt);
+						num = this.index;
+						lunbo();
+					}
+				}
+			}
+
+			fnTab('pic1',['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg'],['美羊羊','灰太狼','小灰灰','喜洋洋'],'onclick');
+			fnTab('pic2',['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg'],['美羊羊'],['灰太狼'],['小灰灰'],['喜洋洋'],'onmouseover');
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vue中的插槽(slot)</title>
+	<script src="../js/vue.js"></script>
+</head>
+<body>	
+	
+	<div id ="root">
+		<!-- 普通语法 -->
+		<child content='<p>Dell</p>'></child>
+		<hr>
+		<!-- 插槽写法 -->
+		<child2 >
+			<p>Dell</p>
+			<h1>heheheh</h1>
+		</child2>
+		<hr>
+		<!-- 具名插槽，区分插槽 -->
+		<body-content>
+			<div class='header' slot="header">header</div>
+			<div class='footer' slot="footer">footer</div>
+		</body-content>
+	</div>
+
+		
+	<script>
+		
+		//普通方式
+		Vue.component('child',{
+			props:['content'],
+			template:`<div >
+						<p>hello</p>
+						<div v-html="this.content"></div>
+					  </div>`
+		})
+
+		//插槽方式
+		Vue.component('child2',{
+			
+			template:`<div >
+						<p>hello</p>
+						<slot></slot>				
+					  </div>`
+		})
+
+		Vue.component('body-content',{
+			
+			template:`<div >
+						<slot name='header'></slot>
+						<div class='content'>content</div>
+						<slot name='footer'></slot>				
+					  </div>`
+		})
+		var vm = new Vue({
+			el:"#root"			
+		});
+	</script>
+</body>
+</html>

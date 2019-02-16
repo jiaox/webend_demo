@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>作用域</title>
+	<script type="text/javascript">
+		// var arr =[1,2,3];
+		// alert(arr.push('abc'));
+		// alert(arr);
+		// alert(arr.unshift(0));
+		// alert(arr);
+
+		// var arr = ['Head','teacher','school','study'];
+		// // alert(arr.splice(0,0,'aaa'));//添加功能
+		// // alert(arr.splice(0,2,'aaa'));//替换功能
+		// alert(arr.splice(1,0,'aaa'));//添加功能
+		// alert(arr);
+
+		//数组去重
+		// var arr =[1,2,2,4,2];
+		// for(var i=0;i<arr.length;i++){
+		// 	for(var j=i+1;j<arr.length;j++){
+		// 		if(arr[i]==arr[j]){
+		// 			arr.splice(j,1);
+		// 			j--
+		// 		}
+		// 	}
+		// }
+		// alert(arr);
+
+		/*var arr =[4,5,3,5,76,2,0,8];
+		arr.sort(function(a,b){
+			return a-b;
+		});
+		alert(arr);*/
+
+		//打乱顺序
+		var arr=[1,2,3,4,5,6,7,8];
+		arr.sort(function(a,b){
+			return Math.random()-0.5;	
+		})
+		alert(arr);
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

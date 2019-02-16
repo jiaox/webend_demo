@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Vue样式绑定</title>
+    <script src="../js/vue-2.4.1.min.js"></script>
+    <style type="text/css">
+        
+        .activated{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">     
+       <div @click="handleDivClick" 
+        :class="{activated:isActivated}"
+       >
+            Hello World
+       </div>
+
+       <div @click="handleDivClick2" 
+        :class="[activated2,activatedOne]"
+       >
+            Hello World2
+       </div>
+
+       <div :style="styleObj" @click="handleDivClick3">
+            Hello World3
+
+       </div>
+
+       <div :style="[styleObj,{fontSize:'20px'}]" @click="handleDivClick3">
+            Hello World4
+
+       </div>
+    </div>
+    
+   
+    <script type="text/javascript">
+       var vm = new Vue({
+            el: "#app",
+            data:{
+                isActivated:false,
+                activated2:"",
+                activatedOne:"activated-one",
+                styleObj:{
+                    color:"black"
+                }
+            },
+            methods:{
+                handleDivClick:function(){
+                    this.isActivated=!this.isActivated;
+                },
+                handleDivClick2:function(){
+                    /*if(this.activated2=="activated"){
+                            this.activated2="";
+                    }else{
+                         this.activated2="activated";
+                    }*/
+
+                    this.activated2 = this.activated2=="activated"?"":"activated";
+                   
+                },
+                handleDivClick3:function(){                
+                   this.styleObj.color =this.styleObj.color==="black"?"red":"black";
+                }
+            }
+       });
+
+    </script>
+</body>
+</html>

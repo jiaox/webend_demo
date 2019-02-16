@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>列表渲染</title>
+	<script src="../js/vue-2.4.1.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div v-for="(item,ind) of list" >
+			{{item}}---{{ind}}
+
+		</div>
+<hr>
+		<!-- key值要唯一，且尽量不要用数组下标，否则耗性能 -->
+		<div v-for="(item,ind) of list2" 
+			:key="item.id">
+			{{item.text}}---{{ind}}
+
+		</div>
+	<hr>
+		<template v-for="(item,ind) of list2" 
+			:key="item.id">
+			<div>
+				{{item.text}}---{{ind}}
+
+			</div>
+			<span>
+				{{item.text}}
+			</span>
+		</template>
+	<hr>
+
+		<div v-for="(item,key,index) of userInfo">
+			{{item}} ----{{key}}---{{index}}
+			
+		</div>
+			
+		
+	</div>
+	<script type="text/javascript">
+		//push pop shift unshift splice sort reverse
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				list:[
+					"hello",
+					"dell",
+					"nice",
+					"to",
+					"meet",
+					"you"
+				],
+				list2:[
+					{
+						id:"010001",
+						text:"hello"
+					},
+					{
+						id:"010002",
+						text:"dell"
+					}
+					,
+					{
+						id:"010003",
+						text:"nice"
+					}
+					,
+					{
+						id:"010004",
+						text:"to"
+					}
+					,
+					{
+						id:"010005",
+						text:"meet"
+					}
+					,
+					{
+						id:"010006",
+						text:"you"
+					}
+				],
+
+				//修改userInfo的屬性值可以 vm.userInfo.屬性 = 值
+				//添加userInfo 屬性  1. vm.userInfo = { 所有屬性和值 }
+									// 2.Vue.set(vm.userInfo,"屬性名","屬性值")
+									// 3. vm.set(vm.userInfo,"屬性名","屬性值")
+									 
+				userInfo:{
+					name:"dell",
+					age:28,
+					gender:"male",
+					salary:"100000"
+				}
+			}
+		});
+	</script>
+</body>
+</html>

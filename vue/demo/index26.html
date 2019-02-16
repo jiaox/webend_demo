@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vue中同时使用过度和动画</title>
+	<script src="../js/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/animate.css">
+	<style type="text/css">
+		
+		.fade-enter,.fade-leave-to{
+			opacity: 0;
+		}
+		.fade-enter-active,
+		.fade-leave-active{
+			transition: opacity 3s;
+		}
+	</style>
+	
+</head>
+<body>	
+	<!-- 引入animate.css库 可以使用丰富的动画，前提必须使用自定义样式 enter-active-class 指定入场动画， leave-active-class指定出厂动画，animated 做前缀 后边使用各自的动画效果-->
+	<!-- 设置type='transition' 则表示动画时长 以上边的transition样式为准 -->
+	<div id ="root">
+		<transition 
+			type="transition"
+			name="fade"
+			appear
+		    enter-active-class="animated swing fade-enter-active" 
+			leave-active-class="animated shake fade-leave-active"
+			appear-class-active-class="animated swing">
+			<div v-if="show">hello world</div>
+		</transition>
+		<button @click="handleClick">切换</button>
+
+
+		<hr>
+		<!-- 通过duration指定动画的自定义时长,以下表示入场时长5秒，离场时长10秒 -->
+		<transition 
+			:duration="{enter：5000,leave:10000}"
+			name="fade"
+			appear
+		    enter-active-class="animated swing fade-enter-active" 
+			leave-active-class="animated shake fade-leave-active"
+			appear-class-active-class="animated swing">
+			<div v-if="show">hello world</div>
+		</transition>
+		<button @click="handleClick">切换2</button>
+	</div>
+
+
+	<script>				
+		var vm = new Vue({
+			data:{
+				show:true
+			},
+			el:"#root",
+			methods:{
+				handleClick:function(){
+					this.show=!this.show
+				}
+			}		
+		});
+	</script>
+</body>
+</html>

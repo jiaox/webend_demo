@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>非父子组件之间传值(Buf/总线/发布订阅/观察者模式)</title>
+	<script src="../js/vue.js"></script>
+</head>
+<body>	
+	<!-- 使用总线机制实现非父子传值 -->
+	<div id ="root">
+		<child content='Dell'></child>
+		<child content='Lee'></child>
+	</div>
+	<script>
+		Vue.prototype.bus = new Vue();//在Vue的protocoltype中放入一个bus属性，也是一个Vue对象
+
+		Vue.component('child',{
+			data:function(){
+				return {
+					selfContent:this.content
+				}
+			},
+			props:{
+				content:String
+			},
+			template:'<div @click="handleClick">{{selfContent}}</div>',
+			methods:{
+				handleClick:function(){
+					// alert(this.content);
+					this.bus.$emit('change',this.selfContent);//触发change事件
+				}
+			},
+			mounted:function(){
+				var this_ =this;
+				this.bus.$on('change',function(msg){//总线监听change事件
+					this_.selfContent =msg;
+				})
+			}
+		})
+		var vm = new Vue({
+			el:"#root"			
+		});
+	</script>
+</body>
+</html>

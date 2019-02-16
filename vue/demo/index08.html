@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Vue 模板语法</title>
+    <script src="../js/vue-2.4.1.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 使用v-html -->
+        <div v-html="name"></div>
+        <div v-html="message+' World'"></div>
+        <!-- 使用v-text -->
+        <div v-text="name"></div>
+        <div v-text="message+' World'"></div>
+        <!-- 插值表达式 -->
+        {{ name }}  <br>    
+        {{ message + ' World' }}    
+    </div>
+    
+   
+    <script type="text/javascript">
+       var vm = new Vue({
+            el: "#app",
+            data:{
+                name:"<h1>jiaox</h1>",
+                message:"hello"
+            }
+       });
+
+    </script>
+</body>
+</html>

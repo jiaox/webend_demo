@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>使用animate.css库</title>
+	<script src="../js/vue.js"></script>
+	<style type="text/css">
+		
+		@keyframes bounce-in{
+			0%{
+				transform: scale(0);
+			}
+			50%{
+				transform: scale(1.5);
+			}
+			100%{
+				transform: scale(1);
+			}
+		}
+		.enter{
+			transform-origin: left center;
+			animation: bounce-in 1s;
+		}
+		.leave{
+			transform-origin: left center;
+			animation: bounce-in 1s reverse;
+		}
+
+		
+		
+	</style>
+</head>
+<body>	
+	<!-- 只需要在需要添加过渡动画的组件外用 transition标签，然后声明一系列样式，样式名带 v-enter,v-leave-to,v-enter-active,v-leave-active 等-->
+	<div id ="root">
+		<transition name="fade" enter-active-class="enter" leave-active-class="leave">
+			<div v-if="show">hello world</div>
+		</transition>
+		<button @click="handleClick">切换</button>
+	</div>
+
+	<!-- v-once提高性能，把dom存入内存，否则会销毁重建，耗性能 -->
+	<script>				
+		var vm = new Vue({
+			data:{
+				show:true
+			},
+			el:"#root",
+			methods:{
+				handleClick:function(){
+					this.show=!this.show
+				}
+			}		
+		});
+	</script>
+</body>
+</html>

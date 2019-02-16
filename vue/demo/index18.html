@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>绑定原生事件</title>
+	<script src="../js/vue.js"></script>
+</head>
+<body>	
+	<div id ="root">
+		<!-- 注意这里的handlClick事件是是自定义事件，而非原生事件，必须由子组件的函数去触发 -->
+		<child @click="handlClick"></child>
+		<hr>
+		<!-- 如果想直接监听原生事件，需要用native -->
+		<child2 @click.native="handleClick2"></child2>
+	</div>
+	<script>
+		Vue.component('child',{
+			// 下面的handleChildClick方法是由子组件的click事件触发。
+			template:'<div @click="handleChilcClick">Child</div>',
+			methods:{
+				handleChilcClick:function(){
+					this.$emit('click'); //这时候调用的是引发的父组件的click事件
+				}
+			}
+		})
+
+
+		Vue.component('child2',{
+			
+			template:'<div>Child2</div>'
+		})
+		var vm = new Vue({
+			el:"#root",
+			methods:{
+				handlClick:function(){
+					alert("click");
+				},
+				handleClick2:function(){
+					alert("click2");
+				}
+			}
+		});
+	</script>
+</body>
+</html>

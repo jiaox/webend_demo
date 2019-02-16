@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vue中多个元素或组件的过渡</title>
+	<script src="../js/vue.js"></script>
+	<style type="text/css">
+		.v-enter,.v-leave-to{
+			opacity: 0;			
+		}
+		.v-enter-active,.v-leave-active{
+			transition: opacity 1s;
+		}
+
+	</style>
+</head>
+<body>	
+	
+	<div id ="root">
+		<!-- 设置mode 
+			in-out   先显示再隐藏
+			out-in  先隐藏再显示
+		 -->
+		<transition mode="out-in">
+			<!-- 如果不加key，则两个显示隐藏的div的dom会进行复用，就不会有上面的过渡效果 -->
+			<div v-if="show" key="hello">hello world</div>
+			<div v-else key="bye">Bye World</div>
+			
+		</transition>
+		<button @click="handleClick">切换</button>
+		<hr>
+		<!-- 组件过渡效果 -->
+		<transition mode="out-in">
+			<child v-if="show2"></child>
+			<child-one v-else></child-one>
+		</transition>
+		<button @click="handleClick2">切换</button>
+
+		<hr>
+		<!-- 高级写法 
+			:is='type'   type自定义，对应显示的子组件
+ 		-->
+		<transition mode="out-in">
+			<component :is="type"></component>
+		</transition>
+		<button @click="handleClick3">切换</button>
+	</div>
+
+
+	<script>	
+		Vue.component ('child',{
+			template:'<div>child</div>'
+		});		
+		Vue.component ('child-one',{
+			template:'<div>child-one</div>'
+		});	
+		var vm = new Vue({
+			data:{
+				show:true,
+				show2:true,
+				type:"child"
+			},
+			el:"#root",
+				
+			methods:{
+				handleClick:function(){
+					this.show=!this.show
+				},
+				handleClick2:function(){
+					this.show2=!this.show2
+				}
+				,
+				handleClick3:function(){
+					this.type=this.type==='child'?'child-one':'child';
+				}
+			}	
+		});
+	</script>
+</body>
+</html>

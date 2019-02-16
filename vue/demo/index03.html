@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>传统MVP模式实现测试todoList</title>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+<div id="app2">
+    <input type="text" id="input" >
+    <button id="btn">提交</button>
+    <ul id="list">
+        
+    </ul>
+</div>
+
+
+<script>
+
+    // M 模型层 V 视图  P 控制器   ------面向DOM编程
+    function Page(){
+
+    }
+
+    $.extend(Page.prototype,{
+        init:function(){
+            this.bindEvents();
+        },
+        bindEvents:function(){
+            var btn=$("#btn");
+            btn.on('click',$.proxy(this.handleBtnClick,this));
+        },
+        handleBtnClick:function(){
+            var inputElem =$("input");
+            var inputvalue= inputElem.val();
+            var list = $("#list");
+            list.append("<li>"+inputvalue+"</li>");
+            $("input").val('');
+        }
+    })
+
+    var page = new Page();
+    page.init();
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>this 的应用</title>
+
+</head>
+<body>
+	<input type="button" id="btn1" value="按钮">
+	<hr>
+	<input type="button" id="btn2" value="按钮2">
+</body>
+<script type="text/javascript">
+		// alert(this);//指的是调用当前方法的对象
+		// window.alert(this);//this 指代window对象
+		var oBtn = document.getElementById("btn1");
+		// alert(oBtn)
+		oBtn.onclick=function(){
+			// alert(this);//this指代oBtn
+			as();
+		}
+
+		function as(){
+			alert(this);//this指代window
+		}
+
+
+		// as();
+		// window.as();
+		var oBtn2 = document.getElementById("btn2");
+		oBtn2.onclick=as;//这里的this指代oBtn2
+
+
+
+	</script>
+</html>

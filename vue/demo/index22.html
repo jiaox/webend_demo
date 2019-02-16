@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>作用域插槽</title>
+	<script src="../js/vue.js"></script>
+</head>
+<body>	
+	<!-- 作用域插槽
+		当子组件做循环或者某一部分dom结构应该由外部传递进来时
+	 -->
+	<div id ="root">
+		<!-- 动态组件 -->
+		<component :is="type"></component>
+		<!-- <child-one v-if="type==='child-one'">			
+		</child-one>
+		<child-two v-if="type==='child-two'">			
+		</child-two> -->
+		<button @click="handleClick">change</button>
+	</div>
+
+	<!-- v-once提高性能，把dom存入内存，否则会销毁重建，耗性能 -->
+	<script>				
+		Vue.component('child-one',{
+			template:'<div v-once>child-one</div>'
+		})
+		Vue.component('child-two',{
+			template:'<div v-once>child-two</div>'
+		})
+		
+		var vm = new Vue({
+			data:{
+				type:'child-one'
+			},
+			el:"#root",
+			methods:{
+				handleClick:function(){
+					this.type= this.type==='child-one'?'child-two':'child-one';
+				}
+			}			
+		});
+	</script>
+</body>
+</html>

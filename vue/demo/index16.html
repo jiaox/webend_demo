@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>父子组件传值</title>
+	<script src="../js/vue-2.4.1.min.js"></script>
+</head>
+<body>
+	<!-- 父子组件进行传值，父组件通过属性的方式给子组件传值，子组件通过触发事件的方式对父组件进行传值 -->
+
+	<div id ="root">
+		<!-- 父组件能向子组件传递数据，但是子组件只能用，不能改，也就是数据流应该是单向的 -->
+		<counter :count="0" @inc="handleIncrease"></counter>
+		<counter :count="1" @inc="handleIncrease"></counter>
+		<div>{{total}}</div>
+	</div>
+	<script type="text/javascript">
+		var counter = {
+			props:['count'],//这里的count对应上面标签中的count和下边的count，后边的数值代表的是js表达式
+			// template:'<div @click="handleClick">{{count}}</div>',
+			template:'<div @click="handleClick">{{number}}</div>',//这里改成number，就不用担心子组件修改了
+			data:function(){
+				return{
+					number:this.count
+				}
+			},
+			methods:{
+				handleClick:function(){
+					this.number++;//这里要写this.number而不能写this.count，因为count是父组件传递的，而number是子组件定义的，子组件不能改父组件传递的值，用number获取count的值，就可以了
+					this.$emit('inc',1);//触发inc事件,事件自定义
+				}
+			}
+		}
+		var vm = new Vue({
+			el:"#root",
+			data:{
+				total:5
+			},
+			components:{
+				counter:counter
+			},
+			methods:{
+				handleIncrease:function(step){
+					// alert(step);
+					this.total +=step;
+				}
+			}
+		});
+	</script>
+</body>
+</html>

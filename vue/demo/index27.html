@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vue中的js动画和velocity.js</title>
+	<script src="../js/vue.js"></script>	
+	<script src="../js/velocity.js"></script>		
+</head>
+<body>	
+	
+	<!-- 使用js实现动画效果
+	   入场事件 before-enter enter after-enter
+	   出场事件 before-leave leave after-leave
+	-->
+	<div id ="root">
+		<transition name="fade" @before-enter="handleBeforeEnter" @enter="handleEnter" @after-enter="handAfterEnter">
+			<div v-show="show">hello world</div>
+		</transition>
+		<button @click="handleClick">切换</button>
+	</div>
+
+
+	<script>				
+		var vm = new Vue({
+			data:{
+				show:true
+			},
+			el:"#root",
+			// methods:{
+			// 	handleClick:function(){
+			// 		this.show=!this.show
+			// 	},
+			// 	handleBeforeEnter:function(el){//el表示元素
+			// 		el.style.color="red";
+			// 	},
+			// 	handleEnter:function(el,done){
+			// 		setTimeout(()=>{
+			// 			el.style.color="green";
+			// 		},2000);
+
+			// 		setTimeout(()=>{
+						
+			// 			done();//必须调用以下done回调函数
+			// 		},4000);
+			// 	},
+			// 	handAfterEnter:function(el){
+			// 		el.style.color="#000";
+			// 	}
+			// }		
+			//调用velocity
+			methods:{
+				handleClick:function(){
+					this.show=!this.show
+				},
+				handleBeforeEnter:function(el){//el表示元素
+					el.style.opacity=0;
+				},
+				handleEnter:function(el,done){
+					Velocity(el,{
+						opacity:1
+					},{
+						duration:1000,
+						complete:done//必须写，要执行done
+					});
+
+				},
+				handAfterEnter:function(el){
+					console.log("动画结束");
+				}
+			}	
+		});
+	</script>
+</body>
+</html>

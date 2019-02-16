@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>条件渲染</title>
+	<script src="../js/vue-2.4.1.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		
+		<!-- 
+			v-if和v-else-if v-else 必须紧贴一起使用，中间不能有别的标签
+		 -->
+		<div v-if="show" data-test="v-if">
+			{{message}}
+		</div>
+		<div v-else>
+			Bye world
+		</div>
+		<!-- 
+			v-if 和 v-show的区别
+			v-if 元素若为false ，则不会创建dom元素 为true会创建dom元素并显示
+			v-show 不管值是不是false，都会创建dom元素，只是会控制其display属性。
+
+		 -->
+		<div v-show="show" data-test="v-show">
+			{{message}}
+		</div>
+
+		<hr>
+
+		<div v-if="msg ==='a'">
+			
+			This is A
+		</div>
+
+		<div v-else-if="msg ==='b'">
+			
+			This is B
+		</div>
+
+		<div v-else>
+			
+			This is others
+		</div>
+		<hr>
+
+		<!-- 
+			如果不用key值，则vue会尝试复用标签
+		 -->
+		<div v-if="show" >
+			用户名: <input key="username"/>
+		</div>
+		<div v-else >
+			邮箱名: <input key="email" />
+		</div>
+	</div>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				show:false,
+				message:"hello world",
+				msg:'a'
+			}
+		});
+	</script>
+</body>
+</html>
