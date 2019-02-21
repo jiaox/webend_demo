@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2019-02-19 23:55:50
 * @Last Modified by:   Administrator
-* @Last Modified time: 2019-02-20 00:18:29
+* @Last Modified time: 2019-02-22 01:09:42
 */
 var fs = require("fs");
 module.exports = {
@@ -22,5 +22,31 @@ module.exports = {
 		console.log(data);
 		console.log("同步方法执行完毕");
 		
+	},
+	writefile(path,data,recall){
+		fs.writeFile(path,data,function(err){
+			if(err){
+				throw err;
+			}
+			console.log('Its saved');//文件被保存
+			recall('写文件成功');
+		});
+	},
+	writeFileSyncFunction(path,data){//同步方式
+		fs.writeFileSync(path,data);
+		console.log('同步些文件完成');
+	},
+	readImg:function(path,res){
+		fs.readFile(path,'binary',function(err,filedata){
+			if(err){
+				console.log(err);
+				return;
+			}else{
+				console.log('输出文件');
+				//res.writeHead(200,{'Content-Type':'image/jpeg'});
+				res.write(filedata,'binary');
+				res.end();
+			}
+		})
 	}
 }
