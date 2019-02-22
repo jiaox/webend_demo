@@ -2,16 +2,17 @@
 * @Author: Administrator
 * @Date:   2019-02-19 23:55:50
 * @Last Modified by:   Administrator
-* @Last Modified time: 2019-02-22 01:09:42
+* @Last Modified time: 2019-02-23 00:19:33
 */
 var fs = require("fs");
 module.exports = {
 	readfile: function(path,recall){
 		fs.readFile(path,function(err,data){
 			if(err){
-				console.log(err);
+				console.log('bbbb'+err);
+				recall('文件不存在');//抛异常之后必须返回主程序 执行response.end('');
 			}else{
-				console.log(data.toString());
+				// console.log(data.toString());
 				recall(data);
 			}
 		});

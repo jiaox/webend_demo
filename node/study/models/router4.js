@@ -1,10 +1,13 @@
 /*
 * @Author: Administrator
-* @Date:   2019-02-19 01:12:44
+* @Date:   2019-02-23 00:26:54
 * @Last Modified by:   Administrator
-* @Last Modified time: 2019-02-23 00:27:19
+* @Last Modified time: 2019-02-23 00:40:24
 */
+
 var optfile = require('./optfile');
+var url = require('url');
+var querystring = require('querystring');
 function getRecall(req,res){
 	res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
 	//定义一个闭包函数
@@ -16,6 +19,24 @@ function getRecall(req,res){
 }
 module.exports = {
 	login:function(req,res){
+	    //get方式接参
+	   /* var rdata = url.parse(req.url,true).query;
+	    console.log(rdata);
+	    if(rdata['email']!=undefined){
+	    	console.log(rdata['email']);
+	    }*/
+
+	    //post方式
+	    var post ='';
+	    req.on('data',function(chunk){//通过req的data事件监控
+	    	post +=chunk;
+	    });
+	    //注意异步
+	    req.on('end',function(){
+	    	post = querystring.parse(post);
+	    	console.log('受到参数:'+post['email']+'\n');
+	    	// res.end('');
+	    });
 		recall=getRecall(req,res);
 		optfile.readfile('./views/login.html',recall);
 	},
