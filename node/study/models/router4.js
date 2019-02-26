@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2019-02-23 00:26:54
 * @Last Modified by:   Administrator
-* @Last Modified time: 2019-02-23 00:40:24
+* @Last Modified time: 2019-02-24 21:50:00
 */
 
 var optfile = require('./optfile');
@@ -34,11 +34,23 @@ module.exports = {
 	    //注意异步
 	    req.on('end',function(){
 	    	post = querystring.parse(post);
-	    	console.log('受到参数:'+post['email']+'\n');
-	    	// res.end('');
+	    	// console.log('受到参数:'+post['email']+'\n');
+	    	arr= ['email','pwd'];
+	    	function recall(data){
+	    		dataStr = data.toString();
+	    		console.log(dataStr);
+	    		for(var i=0;i<arr.length;i++){
+	    			re = new RegExp("{"+arr[i]+"}",'g');//
+	    			dataStr = dataStr.replace(re,post[arr[i]]);
+	    			console.log(re);
+	    		}
+	    		res.write(dataStr);
+	    		res.end('');
+	    	}
+	    	// recall=getRecall(req,res);
+			optfile.readfile('./views/login.html',recall);
 	    });
-		recall=getRecall(req,res);
-		optfile.readfile('./views/login.html',recall);
+		
 	},
 	zhuce:function(req,res){
 		recall=getRecall(req,res);
