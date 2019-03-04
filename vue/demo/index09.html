@@ -15,6 +15,10 @@
        {{fullName}}
        {{age}}
     </div>
+    <div id = "app2">
+        {{fullName}}
+       {{age}}
+    </div>
     
    
     <script type="text/javascript">
@@ -49,13 +53,26 @@
                 }
             }*/
 
-            //计算属性,注意，他们是内置缓存的
-            /*computed:{
-                fullName:function(){
-                    console.log("计算了一次")
-                    return this.firstName+" "+ this.lastName
-                }
-            }*/
+            
+       });
+
+
+       var vm2 = new Vue({
+        el:'#app2',
+        data:{
+            firstName:"Jiao",
+            lastName:"Xiao",   
+            age:28         
+        },
+        
+        //计算属性,注意，他们是内置缓存的
+        computed:{
+            fullName:function(){
+                console.log("计算了一次")
+                return this.firstName+" "+ this.lastName
+            }
+        }
+        
        });
 
     </script>
