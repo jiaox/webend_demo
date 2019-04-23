@@ -1,4 +1,5 @@
 var connPool = require("./ConnPool"); 
+var LoginBean = require("../jsbean/LoginBean");
 module.exports={ 
     zhuce:function(req,res){ 
         pool = connPool(); 
@@ -17,7 +18,7 @@ module.exports={
                     errStr = err.message;
                     console.log(errStr);
                     sendStr = '<script>';
-                    if(errStr.indexOf("emailUniq")>-1){
+                    if(errStr.indexOf("emailuniq")>-1){
                         sendStr+="alert('email 重复');";
                     }else if(errStr.indexOf("nichenguiq")>-1){
                        sendStr+="alert('昵称 重复');";
@@ -36,6 +37,28 @@ module.exports={
         }); 
     }, 
     login:function(req,res){ 
-        return a+b; 
+        pool = connPool();
+        //从pool中获得链接
+        pool.getConnection(function(err,conn){
+            var userSql = 'select uid,nicheng from user where email = ? and pwd = ?';
+            var param = [req.body['email'],req.body['pwd']];
+            conn.query(userSql,param,function(err,rs){
+                if(err){
+                    res.send("数据库错误，错误原因:"+err.message);
+                    return;
+                }
+                if(rs.length>0){
+                    loginbean = new LoginBean();    
+                    loginbean.id=rs[0].uid;    
+                    loginbean.nicheng = rs[0].nicheng;    
+                    req.session.loginbean = loginbean;    
+                    //res.send('登录成功');    
+                    res.redirect('/');    //跳转回index页 
+                }else{
+                    res.send("账号密码错误");
+                }
+            });
+            conn.release();
+        });
     } 
 } 

@@ -3,6 +3,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    loginbean = req.session.loginbean;
+    console.log(loginbean);
+    // console.log(loginbean.nicheng);
   res.render('index', { title: 'Express' });
   // res.send("hello index");//只能做一次输出
 });

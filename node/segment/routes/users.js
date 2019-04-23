@@ -27,11 +27,17 @@ router.all('/all', function(req, res, next) {
 
 /**/
 router.get('/aa', function(req, res, next) {
-  res.sendFile("F:/webWork/webend_demo/node/aa.html");//输出aa.html中的内容，路径为绝对路径
+  res.sendFile("E:/workspace/sublimeTextWork/node/aa.html");//输出aa.html中的内容，路径为绝对路径
 });
 
-router.get('/login', function(req, res, next) {
- res.render("login",{});//渲染login界面
+router.all('/login', function(req, res, next) {
+  subflag = req.body['subflag'];
+  if(subflag==undefined){
+    res.render("login",{});//渲染login界面
+  }else{
+    userModel.login(req,res);
+  }
+ 
 });
 
 /*router.post('/zhuce', function(req, res, next) {

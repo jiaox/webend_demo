@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');//后来安装的
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -17,6 +18,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+//添加与session有关的语句，必须放在此处，原因不详
+app.use(session({secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串    
+    cookie: { maxAge: 20 * 60 * 1000 }, //cookie生存周期20*60秒    
+    resave: true,  //cookie之间的请求规则,假设每次登陆，就算会话存在也重新保存一次    
+    saveUninitialized: true //强制保存未初始化的会话到存储器    
+}));  //这些是写在app.js里面的    
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
