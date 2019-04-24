@@ -59,7 +59,7 @@ router.all('/login', function(req, res, next) {
 
 
 router.post('/zhuce', function(req, res) { 
-    nicheng=req.body['nicheng']; 
+    nicheng=req.body['nicheng']; //接收参数方式4，接收post方式请求
     if(nicheng!=undefined){ 
         userModel.zhuce(req,res); 
     }else{ 

@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
     loginbean = req.session.loginbean;
     console.log(loginbean);
     // console.log(loginbean.nicheng);
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Express' ,loginbean:loginbean});
   // res.send("hello index");//只能做一次输出
 });
 
@@ -14,6 +14,12 @@ router.get('/', function(req, res, next) {
 router.get('/ab*cd', function(req, res, next) {
    console.log("/ab*cd get请求")
   res.send("正则匹配");//只能做一次输出
+});
+
+router.get('/logout', function(req, res, next) {
+    req.session.destroy(function(err){
+        res.redirect('/');
+    });
 });
 
 
