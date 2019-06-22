@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>边框文本 </title>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+        function draw() {
+          var ctx = document.getElementById('canvas').getContext('2d');
+          ctx.font = "48px serif";
+          ctx.strokeText("Hello world", 10, 50);
+
+        }
+    </script>
+</head>
+<body onload="draw()">
+    <canvas width="300px" height="300px" id="canvas">
+        您的浏览器不支持canvas
+    </canvas>
+</body>
+</html>

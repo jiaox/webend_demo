@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>填充规则 </title>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+        function draw() {
+          // 当我们用到 fill（或者 clip和isPointinPath ）你可以选择一个填充规则，该填充规则根据某处在路径的外面或者里面来决定该处是否被填充，这对于自己与自己路径相交或者路径被嵌套的时候是有用的。
+          var ctx = document.getElementById('canvas').getContext('2d'); 
+          ctx.beginPath(); 
+          ctx.arc(50, 50, 30, 0, Math.PI*2, true);
+          ctx.arc(50, 50, 15, 0, Math.PI*2, true);
+          // ctx.fill("nonzero");
+          ctx.fill("evenodd");
+
+        }
+    </script>
+</head>
+<body onload="draw()">
+    <canvas width="300px" height="300px" id="canvas">
+        您的浏览器不支持canvas
+    </canvas>
+</body>
+</html>
