@@ -71,6 +71,7 @@
 				var img = $("img");
 				var num =0;
 				img.each(function(i){
+				    console.log(i);
 					var oImg = new Image();
 
 					oImg.onload = function(){
@@ -84,7 +85,7 @@
 						}
 					}
 
-					oImg.src = img[i].src;
+				//	oImg.src = img[i].src;
 				})
 			})
 		</script>
